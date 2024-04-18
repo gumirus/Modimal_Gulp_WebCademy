@@ -1,9 +1,0 @@
-.main {
-	display: flex;
-	flex-direction: column;
-	gap: 88px;
-
-	@include mobile {
-		gap: 24px;
-	}
-}
