@@ -1,4 +1,6 @@
 const gulp = require('gulp');
+const ghPages = require('gulp-gh-pages');
+const exec = require('child_process').exec;
 
 // Tasks
 require('./gulp/dev.js');
@@ -24,9 +26,20 @@ gulp.task(
 	)
 );
 
-const ghPages = require('gulp-gh-pages');
-
-gulp.task('deploy', function() {
-    return gulp.src('./build/**/*')
-        .pipe(ghPages());
+// Создание ветки gh-pages
+gulp.task('create-gh-pages-branch', function(cb) {
+    exec('git branch gh-pages', function(err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
+
+// Задача развертывания
+gulp.task('deploy', gulp.series('create-gh-pages-branch', function() {
+    return gulp.src('./build/**/*')
+        .pipe(ghPages({
+            remoteUrl: "https://github.com/gumirus/Modimal_Gulp_WebCademy.git",
+            branch: "gh-pages"
+        }));
+}));
