@@ -6,3 +6,5 @@
 - SCSS,
 - Gulp,
 - JS 
+
+- # [deploy](https://gumirus.github.io/Modimal_Gulp_WebCademy/)
